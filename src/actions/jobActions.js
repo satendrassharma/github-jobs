@@ -2,7 +2,10 @@ import {
   FETCH_JOBS_FAILED,
   FETCH_JOBS_START,
   FETCH_JOBS_SUCCESS,
-  FETCH_JOBS_PAGE
+  FETCH_JOBS_PAGE,
+  UPDATE_JOBS_LOCATION,
+  UPDATE_JOBS_FULLTIME,
+  UPDATE_JOBS_DESCRIPTION
 } from "./types";
 import { v4 as uuidv4 } from "uuid";
 
@@ -57,5 +60,26 @@ export const GetPageJobs = function(page) {
   return {
     type: FETCH_JOBS_PAGE,
     payload: { currentPage: page }
+  };
+};
+
+export const UpdateLocation = function(location) {
+  return {
+    type: UPDATE_JOBS_LOCATION,
+    payload: location
+  };
+};
+
+export const UpdateFullTime = function(fulltime) {
+  return {
+    type: UPDATE_JOBS_FULLTIME,
+    payload: fulltime
+  };
+};
+
+export const UpdateDescription = function(description) {
+  return {
+    type: UPDATE_JOBS_DESCRIPTION,
+    payload: description
   };
 };

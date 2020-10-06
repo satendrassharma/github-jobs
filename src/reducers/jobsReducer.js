@@ -2,7 +2,10 @@ import {
   FETCH_JOBS_FAILED,
   FETCH_JOBS_START,
   FETCH_JOBS_SUCCESS,
-  FETCH_JOBS_PAGE
+  FETCH_JOBS_PAGE,
+  UPDATE_JOBS_LOCATION,
+  UPDATE_JOBS_FULLTIME,
+  UPDATE_JOBS_DESCRIPTION
 } from "../actions/types";
 
 const initialState = {
@@ -12,7 +15,10 @@ const initialState = {
   totalPage: 0,
   page: 0,
   viewData: {},
-  id: null
+  id: null,
+  location: "",
+  fulltime: false,
+  description: ""
 };
 
 const getPage = (data, page) => {
@@ -65,6 +71,22 @@ export default function jobsReducer(state = initialState, action) {
         ...state,
         page: action.payload.currentPage,
         viewData: getPage(state.entities, action.payload.currentPage)
+      };
+
+    case UPDATE_JOBS_LOCATION:
+      return {
+        ...state,
+        location: action.payload
+      };
+    case UPDATE_JOBS_FULLTIME:
+      return {
+        ...state,
+        fulltime: action.payload
+      };
+    case UPDATE_JOBS_DESCRIPTION:
+      return {
+        ...state,
+        description: action.payload
       };
     default:
       return state;

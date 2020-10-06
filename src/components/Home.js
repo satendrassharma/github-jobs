@@ -1,47 +1,40 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import debounce from "lodash/debounce";
 import SearchBar from "./SearchBar";
 import Filter from "./Filter";
 import JobList from "./JobList";
 import Pagination from "./Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { FetchJobs } from "../actions/jobActions";
+import {
+  FetchJobs,
+  UpdateDescription,
+  UpdateFullTime,
+  UpdateLocation
+} from "../actions/jobActions";
 import Loading from "./Loading";
 import Error from "./Error";
+import { useLocation } from "react-router-dom";
 
 function Home() {
   const dispatch = useDispatch();
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [fulltime, setFulltime] = useState(false);
+  const { state } = useLocation();
+  // const [description, setDescription] = useState("");
+  // const [location, setLocation] = useState("");
+  // const [fulltime, setFulltime] = useState(false);
 
-  const { status } = useSelector(({ jobs: { status, error } }) => ({
-    status
-  }));
+  const { status, location, fulltime, description } = useSelector(
+    ({ jobs: { status, location, fulltime, description } }) => ({
+      status,
+      location,
+      fulltime,
+      description
+    })
+  );
+
+  console.log({ status, location, fulltime, description });
 
   const searchJobs = (description, fulltime, location) =>
     dispatch(FetchJobs(description, fulltime, location));
-
-  const handleFullTime = e => {
-    setFulltime(e.target.checked);
-  };
-
-  const handleLocation = e => {
-    setLocation(e.target.value);
-  };
-
-  const handleLocationCheckbox = e => {
-    setLocation(e.target.id);
-  };
-
-  const handledescription = e => {
-    setDescription(e.target.value);
-  };
-
-  const onSearch = e => {
-    e.preventDefault();
-    searchJobs(description, fulltime, location);
-  };
 
   const debounceSearchJobs = useCallback(
     debounce(
@@ -53,8 +46,40 @@ function Home() {
   );
 
   useEffect(() => {
+    if (state && state.fromJobDetails) {
+      console.log("back from job details page");
+    } else {
+      debounceSearchJobs("", false, "");
+    }
+    return () => {};
+  }, [debounceSearchJobs, state]);
+
+  const handleFullTime = e => {
+    const fulltime = e.target.checked;
     debounceSearchJobs(description, fulltime, location);
-  }, [location, fulltime, debounceSearchJobs]);
+    // setFulltime(fulltime);
+    dispatch(UpdateFullTime(fulltime));
+  };
+
+  const handleLocation = e => {
+    const location = e.target.value;
+    debounceSearchJobs(description, fulltime, location);
+    // setLocation(location);
+    dispatch(UpdateLocation(location));
+  };
+
+  const handleLocationCheckbox = e => {
+    const location = e.target.id;
+    debounceSearchJobs(description, fulltime, location);
+    // setLocation(location);
+    dispatch(UpdateLocation(location));
+  };
+
+  const onSearch = description => {
+    debounceSearchJobs(description, fulltime, location);
+    // setDescription(description);
+    dispatch(UpdateDescription(description));
+  };
 
   return (
     <>
@@ -62,14 +87,11 @@ function Home() {
         <div className="header">
           <strong>Github</strong> Jobs
         </div>
-        <SearchBar
-          description={description}
-          handledescription={handledescription}
-          onSearch={onSearch}
-        />
+        <SearchBar onSearch={onSearch} description={description} />
       </header>
       <main className="container main">
         <Filter
+          fulltime={fulltime}
           location={location}
           handleLocation={handleLocation}
           handleLocationCheckbox={handleLocationCheckbox}

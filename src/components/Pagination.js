@@ -9,27 +9,21 @@ function Pagination() {
   }));
   const dispatch = useDispatch();
 
-  // const [page, setPage] = useState(1);
-
   const handlePrevPagination = e => {
     if (page > 1) {
       dispatch(GetPageJobs(page - 1));
-      // setPage(prevpage => prevpage - 1);
     }
   };
 
   const handleNextPagination = e => {
     if (page < totalPage) {
       dispatch(GetPageJobs(page + 1));
-      // setPage(prevPage => prevPage + 1);
     }
   };
 
   const handlePagination = e => {
-    // console.dir(parseInt(e.target.textContent));
     const page = parseInt(e.target.textContent);
     dispatch(GetPageJobs(page));
-    // setPage(page);
   };
 
   const pagelinks = () => {

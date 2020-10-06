@@ -1,19 +1,25 @@
 import React from "react";
 
 function filter({
+  fulltime,
   location,
   handleLocation,
   handleLocationCheckbox,
   handleFullTime
 }) {
+  const onSubmit = e => {
+    e.preventDefault();
+  };
+
   return (
     <div className="main__filter">
-      <form action="#">
+      <form action="#" onSubmit={onSubmit}>
         <div className="form-control fulltime">
           <input
             type="checkbox"
             name="fulltime"
             id="fulltime"
+            checked={fulltime}
             onChange={handleFullTime}
           />
           <span>Full Time</span>

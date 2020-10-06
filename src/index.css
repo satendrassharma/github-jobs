@@ -31,6 +31,11 @@ img {
   height: 100%;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .container {
   width: 1200px;
   max-width: 100%;
@@ -115,7 +120,7 @@ font-family: 'Roboto', sans-serif; */
   font-weight: normal;
   font-size: var(--font12);
   line-height: var(--lh12);
-  color: #b9bdcf;
+  /* color: #b9bdcf; */
 }
 
 #search {
@@ -212,6 +217,7 @@ font-family: 'Roboto', sans-serif; */
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
+  width: 85%;
 }
 
 .location__inputwrapper i {
@@ -487,6 +493,18 @@ ul {
 
 i.public-icon {
   margin-left: 0;
+}
+
+/* footer  */
+
+footer {
+  text-align: center;
+  margin-top: 6rem;
+  color: #333333;
+  line-height: 17px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
 }
 
 @media only screen and (max-width: 425px) {

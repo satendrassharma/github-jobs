@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import Footer from "./components/Footer";
 import Home from "./components/Home";
 import JobDetails from "./components/JobDetails";
 
@@ -14,6 +15,7 @@ function App() {
           <JobDetails />
         </Route>
       </Switch>
+      <Footer />
     </div>
   );
 }
