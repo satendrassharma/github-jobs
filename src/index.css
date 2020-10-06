@@ -76,7 +76,7 @@ font-family: 'Roboto', sans-serif; */
 
 .searchbar {
   height: 138px;
-  background-image: url("./github-jobs-master/backgroundImg.png");
+  background-image: url("./github-jobs-master/backgroundImg.jpg");
   background-size: cover;
   border-radius: 0.5rem;
   display: flex;
