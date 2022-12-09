@@ -33,7 +33,7 @@ export const FetchJobs = function(description, full_time, location) {
     const search = `description=${description}&full_time=${full_time}&location=${location}`;
 
     fetch(
-      `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?${search}`
+      `https://api.allorigins.win/get?url=https://jobs.github.com/positions.json?${search}`
     )
       .then(res => res.json())
       .then(data => {
